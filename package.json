@@ -1,0 +1,29 @@
+{
+  "name": "dollarbaz-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dollarbaz - fintech platform infrastructure",
+  "author": "Dollarbaz",
+  "license": "MIT",
+  "packageManager": "pnpm@10.7.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm eslint . --ext .js,.ts,.tsx",
+    "format": "pnpm prettier --write .",
+    "clean": "rm -rf node_modules && rm -rf apps/**/node_modules && rm -rf packages/**/node_modules && pnpm install"
+  },
+  "keywords": [
+    "fintech",
+    "platform",
+    "dollarbaz",
+    "monorepo"
+  ],
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5"
+  }
+}
