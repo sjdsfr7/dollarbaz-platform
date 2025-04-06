@@ -38,6 +38,9 @@ const config: Config = {
           '2xl': '1400px',
         },
       },
+      borderColor: {
+        border: '#E5E7EB', // اینو اضافه کن
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
