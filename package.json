@@ -15,7 +15,8 @@
     "build": "pnpm --filter web build",
     "lint": "pnpm eslint . --ext .js,.ts,.tsx",
     "format": "pnpm prettier --write .",
-    "clean": "rm -rf node_modules && rm -rf apps/**/node_modules && rm -rf packages/**/node_modules && pnpm install"
+    "clean": "rm -rf node_modules && rm -rf apps/**/node_modules && rm -rf packages/**/node_modules && pnpm install",
+    "db:push": "pnpm --filter db exec prisma db push"
   },
   "keywords": [
     "fintech",

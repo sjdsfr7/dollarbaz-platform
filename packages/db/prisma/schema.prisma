@@ -26,3 +26,25 @@ model Order {
   status    String   @default("pending")
   createdAt DateTime @default(now())
 }
+
+model StarsExchange {
+  id           String   @id @default(cuid())
+  telegramId   String
+  username     String?
+  starsAmount  Int
+  payoutType   String   // 'TON' | 'USDT_TRC20' | 'IRR' | 'EUR'
+  payoutInfo   String   // wallet address or IBAN
+  status       String   // 'pending' | 'verified' | 'paid' | 'failed'
+  reference    String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+model UserWallet {
+  id         String   @id @default(cuid())
+  telegramId String   @unique
+  username   String?
+  tonAddress String?
+  usdtAddress String?
+  verified   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}

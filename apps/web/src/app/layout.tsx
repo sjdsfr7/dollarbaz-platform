@@ -18,12 +18,11 @@ export const metadata: Metadata = {
   description: 'Global fintech services built for speed and scale',
 };
 
-export default function RootLayout({
-  // children,
-}: {
+export default function RootLayout({}: // children,
+{
   children: React.ReactNode;
 }) {
-  return /*(
+  return; /*(
     <ClerkProvider>
       <html lang="en">
         <body
