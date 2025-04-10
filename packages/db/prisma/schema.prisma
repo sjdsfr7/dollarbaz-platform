@@ -1,4 +1,6 @@
+
 // packages/db/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
   output   = "../../node_modules/.pnpm/@prisma+client@latest/node_modules/@prisma/client"
@@ -8,6 +10,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// =====================
+// Models
+// =====================
 
 model User {
   id        String   @id @default(cuid())
@@ -39,12 +45,69 @@ model StarsExchange {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
 model UserWallet {
-  id         String   @id @default(cuid())
-  telegramId String   @unique
-  username   String?
-  tonAddress String?
+  id          String   @id @default(cuid())
+  telegramId  String   @unique
+  username    String?
+  tonAddress  String?
   usdtAddress String?
-  verified   Boolean  @default(false)
-  createdAt  DateTime @default(now())
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model VirtualCardRequest {
+  id                   String   @id @default(cuid())
+  userId               String   // From Clerk or Telegram mapping
+  fullName             String
+  email                String
+  phoneNumber          String
+  country              String
+
+  cardCurrency         CardCurrency
+  cardType             String?  // e.g. "personal", "business"
+  fundingAmount        Decimal  @db.Decimal(10, 2)
+  fundingMethod        String   // e.g. "USDT", "balance", "bank"
+  cardLabel            String?  // Optional UX label
+
+  billingAddress       String?
+  postalCode           String?
+
+  paymentSourceType    String   // "wallet", "crypto_tx", etc.
+  paymentSource        String   // TXID or wallet_id
+  proofOfPaymentUrl    String?  // If uploaded manually
+
+  isFirstCard          Boolean  @default(false)
+  expectedMonthlySpend Decimal? @db.Decimal(10, 2)
+  industryOrUseCase    String?
+
+  status               CardRequestStatus @default(PENDING)
+  cardProviderId       String?
+  adminNotes           String?
+
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  deletedAt            DateTime?
+
+  @@index([userId])
+}
+
+// =====================
+// Enums
+// =====================
+
+enum CardRequestStatus {
+  PENDING
+  REVIEW
+  APPROVED
+  ISSUED
+  FAILED
+  CANCELED
+}
+
+enum CardCurrency {
+  USD
+  EUR
+  GBP
+  // Extend as needed
 }

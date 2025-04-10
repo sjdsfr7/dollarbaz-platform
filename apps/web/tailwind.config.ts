@@ -2,33 +2,48 @@ import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: 'class',
-  content: [
-    './app/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './pages/**/*.{ts,tsx}',
-  ],
+  content: ['./src/**/*.{ts,tsx}', '../../packages/ui/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        background: '#1e1e1e',
-        foreground: '#dee2e6',
-        primary: '#aeb4b8',
-        secondary: '#dee2e6',
-        accent: {
-          blue: '#00d0ff',
-          orange: '#ff7b00',
-          yellow: '#ffcc00',
-        },
+        background: 'oklch(var(--background) / <alpha-value>)',
+        foreground: 'oklch(var(--foreground) / <alpha-value>)',
+        card: 'oklch(var(--card) / <alpha-value>)',
+        'card-foreground': 'oklch(var(--card-foreground) / <alpha-value>)',
+        popover: 'oklch(var(--popover) / <alpha-value>)',
+        'popover-foreground':
+          'oklch(var(--popover-foreground) / <alpha-value>)',
+        primary: 'oklch(var(--primary) / <alpha-value>)',
+        'primary-foreground':
+          'oklch(var(--primary-foreground) / <alpha-value>)',
+        secondary: 'oklch(var(--secondary) / <alpha-value>)',
+        'secondary-foreground':
+          'oklch(var(--secondary-foreground) / <alpha-value>)',
+        muted: 'oklch(var(--muted) / <alpha-value>)',
+        'muted-foreground': 'oklch(var(--muted-foreground) / <alpha-value>)',
+        accent: 'oklch(var(--accent) / <alpha-value>)',
+        'accent-foreground': 'oklch(var(--accent-foreground) / <alpha-value>)',
+        destructive: 'oklch(var(--destructive) / <alpha-value>)',
+        border: 'oklch(var(--border) / <alpha-value>)',
+        input: 'oklch(var(--input) / <alpha-value>)',
+        ring: 'oklch(var(--ring) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['Orbitron', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          '2xl': '1400px',
+        },
       },
       borderColor: {
         border: '#E5E7EB', // اینو اضافه کن
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
 
 export default config;
