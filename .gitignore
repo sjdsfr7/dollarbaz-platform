@@ -234,3 +234,13 @@ docker-compose.override.yml
 
 # Clerk configuration (may contain secrets)
 .clerk/
+
+# .env files
+# Exclude all .env files
+!*.env
+# Exclude all .env files in the env directory
+!env/*
+# Exclude all .env files in the env directory except for .env.example
+!env/*.env.example
+# Exclude all .env files in the env directory except for .env.example
+!env/*.env

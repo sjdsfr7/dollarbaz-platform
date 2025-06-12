@@ -29,7 +29,9 @@ const config: Config = {
         ring: 'oklch(var(--ring) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['InterVariable', 'VazirmatnFD', 'sans-serif'],
+        heading: ['Orbitron', 'IranYekanX', 'sans-serif'],
+        label: ['Orbitron', 'IranYekanX', 'VazirmatnFD', 'sans-serif'],
       },
       container: {
         center: true,

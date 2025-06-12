@@ -1,0 +1,62 @@
+/                      ← root git repo
+├── .github
+│   └── workflows
+│       ├── ci.yml        # lint/typecheck/test (push + PR)
+│       └── deploy.yml    # build & push Docker to Render
+├── docker-compose.yml   # Postgres, Redis, backend, bot, web
+├── pnpm-workspace.yaml  # workspaces: apps/*, packages/*
+├── package.json         # hoisted devDeps: TS, ESLint, Jest, tRPC
+├── tsconfig.base.json   # shared TS settings
+├── README.md            # setup, scripts, deploy guide
+├── env
+│   ├── backend.env
+│   ├── telegrambot.env
+│   ├── web.env.local
+│   ├── web.env.production
+│   └── db.env
+└── apps
+    ├── backend
+    │   ├── Dockerfile
+    │   ├── .env.example
+    │   ├── package.json      # Fastify, @trpc/server, Prisma, Sentry
+    │   ├── tsconfig.json
+    │   └── src
+    │       ├── index.ts      # bootstrap tRPC + Fastify + Sentry
+    │       ├── router.ts     # tRPC procedure definitions
+    │       ├── webhook.ts    # grammY update handler → tRPC calls
+    │       └── workers
+    │           └── vnWorker.ts   # BullMQ consumer for virtual numbers
+    ├── telegrambot
+    │   ├── Dockerfile
+    │   ├── .env.example
+    │   ├── package.json      # grammY, @trpc/client, tsc-node-dev
+    │   ├── tsconfig.json
+    │   └── src
+    │       ├── index.ts      # grammY bootstrap, ngrok setup
+    │       └── commands
+    │           ├── start.ts
+    │           ├── wallet.ts
+    │           └── buyVn.ts
+    └── web
+        ├── Dockerfile
+        ├── .env.example
+        ├── package.json      # Next.js, @trpc/next, Clerk UI kit
+        ├── tsconfig.json
+        ├── next.config.js
+        └── src
+            ├── pages
+            │   ├── index.tsx
+            │   ├── wallet.tsx
+            │   └── buy-vn.tsx
+            └── utils
+                ├── trpc.ts    # tRPC client setup
+                └── auth.ts    # Clerk hooks
+└── packages
+    ├── auth                 # Clerk wrapper + tRPC auth middleware
+    ├── db                   # Prisma schema & client instantiation
+    ├── wallet-engine        # ledger engine (credit, debit, balance)
+    ├── events               # Zod schemas & simple event emitter (Redis pub/sub)
+    └── services
+        └── vn
+            ├── contracts.ts # interface { requestNumber(), pollSms() }
+            └── adapter.ts   # Twilio implementation
