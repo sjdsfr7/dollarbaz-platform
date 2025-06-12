@@ -1,4 +1,0 @@
-aiogram>=3.2.0
-httpx
-python-dotenv
-pip freeze > requirements.txt

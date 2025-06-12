@@ -111,3 +111,44 @@ enum CardCurrency {
   GBP
   // Extend as needed
 }
+
+model NotifyLead {
+  id        String   @id @default(cuid())
+  email     String
+  phone     String?
+  platform  String   // 'trading' or 'education'
+  createdAt DateTime @default(now())
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  userId    String
+  currency  Currency
+  balance   Decimal  @default(0)
+  locked    Decimal  @default(0)
+  transactions Transaction[]
+}
+
+model Transaction {
+  id        String     @id @default(uuid())
+  walletId  String
+  wallet    Wallet     @relation(fields: [walletId], references: [id])
+  type      TransactionType
+  amount    Decimal
+  ref       String
+  timestamp DateTime   @default(now())
+  note      String?
+}
+
+enum Currency {
+  USD
+  USDT
+  BTC
+}
+
+enum TransactionType {
+  TOPUP
+  ORDER_SERVICE
+  WITHDRAWAL
+  ADJUSTMENT
+}
